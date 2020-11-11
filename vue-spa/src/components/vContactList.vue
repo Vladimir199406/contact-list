@@ -2,18 +2,18 @@
   <div>
     <h1>Список контактов</h1>
     <!--<vContactUser/>-->
-    <button v-on:click="buttonOfAddingIsPressedChangeToActive" id="addingButton">Добавить новый контакт</button>
+    <button v-on:click="addContact" id="addingButton">Добавить новый контакт</button>
     <div v-if="buttonOfAddingIsPressed === true">
       <input v-model="tagInputContent" type="text" placeholder="Имя нового контакта">
       <span v-if="tagInputContent.length != 0">
-        <button v-on:click="buttonOfAddingIsPressedChangeToNotActive">Сохранить контакт</button>
+        <button v-on:click="saveNewContact">Сохранить контакт</button>
       </span>
     </div>
-    <span v-if="savedContactList.length != 0">
+    <span >
         <ul v-for="(contact, index) in savedContactList"
             v-bind:key="contact"
         >
-          <li>{{index + 1}}: {{contact}}</li>
+          <li>{{index + 1}}: {{contact}} <button v-on:click="deleteContact(index)">Удалить контакт</button></li>
         </ul>
     </span>
   </div>
@@ -32,21 +32,24 @@ export default {
       buttonOfAddingIsPressed: false,
       tagInputContent: '',
       savedContactList: [],
-      contactsCounter: 0
     }
   },
   methods: {
-    buttonOfAddingIsPressedChangeToActive(){
+    addContact(){
       document.getElementById("addingButton").hidden = true;
       this.buttonOfAddingIsPressed = true;
     },
-    buttonOfAddingIsPressedChangeToNotActive(){
+    saveNewContact(){
       this.buttonOfAddingIsPressed = false;
-      console.log(this.tagInputContent);
-      this.savedContactList[this.contactsCounter] = this.tagInputContent;
-      this.contactsCounter++;
+      //console.log(this.tagInputContent);
+      this.savedContactList.push(this.savedContactList[this.index] = this.tagInputContent);
       document.getElementById("addingButton").hidden = false;
     },
+    deleteContact(index){
+      this.savedContactList.splice(index, 1);
+      //console.log(this.savedContactList.length);
+      //console.log(index);
+    }
   }
 }
 </script>
