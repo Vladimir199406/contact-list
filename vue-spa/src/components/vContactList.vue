@@ -2,11 +2,11 @@
   <div>
     <h1>Список контактов</h1>
     <!--<vContactUser/>-->
-    <button v-on:click="buttonIsPressedChangeToActive">Добавить новый контакт</button>
-    <div v-if="buttonIsPressed === true">
+    <button v-on:click="buttonOfAddingIsPressedChangeToActive" id="addingButton">Добавить новый контакт</button>
+    <div v-if="buttonOfAddingIsPressed === true">
       <input v-model="tagInputContent" type="text" placeholder="Имя нового контакта">
-      <span v-if="tagInputContent.length != 0" v>
-        <button v-on:click="buttonIsPressedChangeToNotActive">Сохранить контакт</button>
+      <span v-if="tagInputContent.length != 0">
+        <button v-on:click="buttonOfAddingIsPressedChangeToNotActive">Сохранить контакт</button>
       </span>
     </div>
     <span v-if="savedContactList.length != 0">
@@ -29,21 +29,23 @@ export default {
   },
   data(){
     return {
-      buttonIsPressed: false,
+      buttonOfAddingIsPressed: false,
       tagInputContent: '',
       savedContactList: [],
       contactsCounter: 0
     }
   },
   methods: {
-    buttonIsPressedChangeToActive(){
-      this.buttonIsPressed = true;
+    buttonOfAddingIsPressedChangeToActive(){
+      document.getElementById("addingButton").hidden = true;
+      this.buttonOfAddingIsPressed = true;
     },
-    buttonIsPressedChangeToNotActive(){
-      this.buttonIsPressed = false;
+    buttonOfAddingIsPressedChangeToNotActive(){
+      this.buttonOfAddingIsPressed = false;
       console.log(this.tagInputContent);
       this.savedContactList[this.contactsCounter] = this.tagInputContent;
       this.contactsCounter++;
+      document.getElementById("addingButton").hidden = false;
     },
   }
 }
