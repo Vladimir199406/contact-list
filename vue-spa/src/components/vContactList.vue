@@ -9,8 +9,12 @@
         <button v-on:click="buttonIsPressedChangeToNotActive">Сохранить контакт</button>
       </span>
     </div>
-    <span v-if="newSavedContact.length != 0">
-        <p>{{newSavedContact}}</p>
+    <span v-if="savedContactList.length != 0">
+        <ul v-for="(contact, index) in savedContactList"
+            v-bind:key="contact"
+        >
+          <li>{{index + 1}}: {{contact}}</li>
+        </ul>
     </span>
   </div>
 </template>
@@ -27,7 +31,8 @@ export default {
     return {
       buttonIsPressed: false,
       tagInputContent: '',
-      newSavedContact: ''
+      savedContactList: [],
+      contactsCounter: 0
     }
   },
   methods: {
@@ -37,7 +42,8 @@ export default {
     buttonIsPressedChangeToNotActive(){
       this.buttonIsPressed = false;
       console.log(this.tagInputContent);
-      this.newSavedContact = this.tagInputContent;
+      this.savedContactList[this.contactsCounter] = this.tagInputContent;
+      this.contactsCounter++;
     },
   }
 }
@@ -54,5 +60,8 @@ export default {
   button:hover{
     background-color: #42b983;
     color: whitesmoke;
+  }
+  ul{
+    text-align: left;
   }
 </style>
