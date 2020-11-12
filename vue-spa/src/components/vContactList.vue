@@ -13,7 +13,11 @@
         <ul v-for="(contact, index) in savedContactList"
             v-bind:key="contact"
         >
-          <li>{{index + 1}}: {{contact}} <button v-on:click="deleteContact(index)">Удалить контакт</button></li>
+          <li v-on:click="showModal" >{{index + 1}}: {{contact}} <button v-on:click="deleteContact(index)">Удалить контакт</button></li>
+              <vOneModalWindow
+                v-show="isModalVisible"
+                v-on:close="closeModal"
+              />
         </ul>
     </span>
   </div>
@@ -21,17 +25,20 @@
 
 <script>
 import vContactUser from "./vContactUser";
+import vOneModalWindow from "./vOneModalWindow";
 
 export default {
   name: "vContactList",
   components: {
-    vContactUser
+    vContactUser,
+    vOneModalWindow
   },
   data(){
     return {
       buttonOfAddingIsPressed: false,
       tagInputContent: '',
       savedContactList: [],
+      isModalVisible: false,
     }
   },
   methods: {
@@ -48,7 +55,14 @@ export default {
     deleteContact(index){
       this.savedContactList.splice(index, 1);
       //console.log(this.savedContactList.length);
-      //console.log(index);
+      console.log(index);
+      this.isModalVisible = false;
+    },
+    showModal() {
+      this.isModalVisible = true;
+    },
+    closeModal() {
+      this.isModalVisible = false;
     }
   }
 }
