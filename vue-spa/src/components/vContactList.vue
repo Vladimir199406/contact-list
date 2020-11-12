@@ -10,14 +10,12 @@
       </span>
     </div>
     <span >
-        <ul v-for="(contact, index) in savedContactList"
-            v-bind:key="contact"
-        >
-          <li v-on:click="showModal" >{{index + 1}}: {{contact}} <button v-on:click="deleteContact(index)">Удалить контакт</button></li>
-              <vOneModalWindow
-                v-show="isModalVisible"
-                v-on:close="closeModal"
-              />
+        <ul v-for="(contact, index) in savedContactList" v-bind:key="contact">
+          <li>
+            {{index + 1}}: {{contact}}
+            <button v-on:click="startDeletion(index)" class="deleteButton">Удалить контакт</button>
+            <button v-on:click="confirmDeletion(index)" class="confirmDeleteButton" hidden="true">Подтвердите удаление контакта</button>
+          </li>
         </ul>
     </span>
   </div>
@@ -25,20 +23,17 @@
 
 <script>
 import vContactUser from "./vContactUser";
-import vOneModalWindow from "./vOneModalWindow";
 
 export default {
   name: "vContactList",
   components: {
-    vContactUser,
-    vOneModalWindow
+    vContactUser
   },
   data(){
     return {
       buttonOfAddingIsPressed: false,
       tagInputContent: '',
       savedContactList: [],
-      isModalVisible: false,
     }
   },
   methods: {
@@ -52,18 +47,15 @@ export default {
       this.savedContactList.push(this.savedContactList[this.index] = this.tagInputContent);
       document.getElementById("addingButton").hidden = false;
     },
-    deleteContact(index){
+    startDeletion(index){
+      document.getElementsByClassName("deleteButton")[index].hidden = true;
+      document.getElementsByClassName("confirmDeleteButton")[index].hidden = false;
+    },
+    confirmDeletion(index){
       this.savedContactList.splice(index, 1);
       //console.log(this.savedContactList.length);
       console.log(index);
-      this.isModalVisible = false;
     },
-    showModal() {
-      this.isModalVisible = true;
-    },
-    closeModal() {
-      this.isModalVisible = false;
-    }
   }
 }
 </script>
