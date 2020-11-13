@@ -22,6 +22,7 @@
 </template>
 
 <script>
+import {mapGetters, mapActions} from 'vuex'
 
 export default {
   name: "vContactList",
@@ -33,7 +34,15 @@ export default {
       savedContactList: [],
     }
   },
+  computed: {
+    ...mapGetters([
+      'LIST_OF_CONTACTS'
+    ])
+  },
   methods: {
+    ...mapActions([
+      'CHANGE_LIST_OF_CONTACTS'
+    ]),
     addContact(){
       document.getElementById("addingButton").hidden = true;
       this.buttonOfAddingIsPressed = true;
@@ -41,6 +50,7 @@ export default {
     saveNewContact(){
       this.buttonOfAddingIsPressed = false;
       //console.log(this.tagInputContent);
+      this.LIST_OF_CONTACTS().push(this.savedContactList[this.index] = this.tagInputContent);
       this.savedContactList.push(this.savedContactList[this.index] = this.tagInputContent);
       document.getElementById("addingButton").hidden = false;
     },
