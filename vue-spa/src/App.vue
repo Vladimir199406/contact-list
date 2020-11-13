@@ -1,10 +1,12 @@
 <template>
-  <div id="app">
-    <img src="./assets/logo.jpg">
-    <div>
-      <vContactList/>
+  <keep-alive>
+    <div id="app">
+      <!--<img src="./assets/logo.jpg">-->
+      <div>
+        <router-view></router-view>
+      </div>
     </div>
-  </div>
+  </keep-alive>
 </template>
 
 <script>
@@ -13,7 +15,7 @@ import vContactList from './components/vContactList'
 export default {
   name: 'app',
   components: {
-    vContactList
+    vContactList,
   },
   data () {
     return {}

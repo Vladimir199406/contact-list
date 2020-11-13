@@ -1,7 +1,6 @@
 <template>
   <div>
     <h1>Список контактов</h1>
-    <!--<vContactUser/>-->
     <button v-on:click="addContact" id="addingButton">Добавить новый контакт</button>
     <div v-if="buttonOfAddingIsPressed === true">
       <input v-model="tagInputContent" type="text" placeholder="Имя нового контакта">
@@ -15,6 +14,7 @@
             {{index + 1}}: {{contact}}
             <button v-on:click="startDeletion(index)" class="deleteButton">Удалить контакт</button>
             <button v-on:click="confirmDeletion(index)" class="confirmDeleteButton" hidden="true">Подтвердите удаление контакта</button>
+            <router-link to="/contact-list/user-info"><button>Информация о контакте {{contact}}</button></router-link>
           </li>
         </ul>
     </span>
@@ -22,13 +22,10 @@
 </template>
 
 <script>
-import vContactUser from "./vContactUser";
 
 export default {
   name: "vContactList",
-  components: {
-    vContactUser
-  },
+  components: {},
   data(){
     return {
       buttonOfAddingIsPressed: false,
