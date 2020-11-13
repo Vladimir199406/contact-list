@@ -47,6 +47,7 @@ export default {
       document.getElementById("addingButton").hidden = true;
       this.buttonOfAddingIsPressed = true;
     },
+
     saveNewContact(){
       this.buttonOfAddingIsPressed = false;
       //console.log(this.tagInputContent);
