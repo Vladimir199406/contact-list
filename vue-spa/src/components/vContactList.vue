@@ -9,7 +9,7 @@
       </span>
     </div>
     <span >
-        <ul v-for="(contact, index) in savedContactList" v-bind:key="contact">
+        <ul v-for="(contact, index) in LIST_OF_CONTACTS" v-bind:key="contact">
           <li>
             {{index + 1}}: {{contact}}
             <button v-on:click="startDeletion(index)" class="deleteButton">Удалить контакт</button>
@@ -30,8 +30,7 @@ export default {
   data(){
     return {
       buttonOfAddingIsPressed: false,
-      tagInputContent: '',
-      savedContactList: [],
+      tagInputContent: ''
     }
   },
   computed: {
@@ -41,7 +40,8 @@ export default {
   },
   methods: {
     ...mapActions([
-      'CHANGE_LIST_OF_CONTACTS'
+      'ADD_CONTACT_TO_LIST_OF_CONTACTS',
+      'DELETE_CONTACT_FROM_LIST_OF_CONTACTS'
     ]),
     addContact(){
       document.getElementById("addingButton").hidden = true;
@@ -51,16 +51,17 @@ export default {
     saveNewContact(){
       this.buttonOfAddingIsPressed = false;
       //console.log(this.tagInputContent);
-      this.LIST_OF_CONTACTS().push(this.savedContactList[this.index] = this.tagInputContent);
-      this.savedContactList.push(this.savedContactList[this.index] = this.tagInputContent);
+      this.ADD_CONTACT_TO_LIST_OF_CONTACTS(this.tagInputContent);
+      //this.savedContactList.push(this.savedContactList[this.index] = this.tagInputContent);
       document.getElementById("addingButton").hidden = false;
+      console.log(this.LIST_OF_CONTACTS);
     },
     startDeletion(index){
       document.getElementsByClassName("deleteButton")[index].hidden = true;
       document.getElementsByClassName("confirmDeleteButton")[index].hidden = false;
     },
     confirmDeletion(index){
-      this.savedContactList.splice(index, 1);
+      this.DELETE_CONTACT_FROM_LIST_OF_CONTACTS(index);
       //console.log(this.savedContactList.length);
       console.log(index);
     },

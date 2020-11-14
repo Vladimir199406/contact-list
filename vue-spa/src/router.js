@@ -8,7 +8,7 @@ Vue.use(Router)
 const router = new Router({
   routes: [
     {
-      path: '/contact-list',
+      path: '/',
       name:'contact-list',
       component: vContactList,
     },

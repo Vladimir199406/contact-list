@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>Информация о контакте</h1>
-    <router-link to="/contact-list"><button>Скрыть информацию о контакте</button></router-link>
+    <router-link to="/"><button>Скрыть информацию о контакте</button></router-link>
   </div>
 </template>
 
