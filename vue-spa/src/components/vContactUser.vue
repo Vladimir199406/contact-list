@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import {mapGetters} from 'vuex'
+import {mapActions, mapGetters} from 'vuex'
 
 export default {
   name: "vContactUser",
@@ -47,6 +47,9 @@ export default {
     ])
   },
   methods: {
+    ...mapActions([
+      'ADD_FIELD_VALUE'
+    ]),
     addFieldValue(){
       document.getElementById("addingFieldValueButton").hidden = true;
       this.buttonOfAddingFieldValueIsPressed = true;
@@ -54,6 +57,7 @@ export default {
     saveNewFieldValue(){
       this.buttonOfAddingFieldValueIsPressed = false;
       document.getElementById("addingFieldValueButton").hidden = false;
+      this.ADD_FIELD_VALUE(this.tagInputField, this.tagInputValue,);
     },
   }
 }

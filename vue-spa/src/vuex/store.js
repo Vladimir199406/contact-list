@@ -22,9 +22,7 @@ let store = new Vuex.Store({
       return state.selectedContact;
     },
     FIELD_VALUE_ARRAY_ADDING_ELEMENT: (state,tagInputField, tagInputValue, index) =>{
-      state.savedFieldValueArr = new Map([
-        []
-      ])
+      state.savedFieldValueArr.push(state.savedFieldValueArr[index] = tagInputField);
     },
   }
   ,
@@ -38,8 +36,8 @@ let store = new Vuex.Store({
     GET_INFO_ABOUT_SELECTED_CONTACT({commit}, index){
       commit('INFO_ABOUT_SELECTED_CONTACT', index);
     },
-    ADD_FIELD_VALUE({commit}, index){
-      commit('INFO_ABOUT_SELECTED_CONTACT', index);
+    ADD_FIELD_VALUE({commit}, tagInputField, tagInputValue){
+      commit('FIELD_VALUE_ARRAY_ADDING_ELEMENT', tagInputField, tagInputValue);
     },
 
   },
