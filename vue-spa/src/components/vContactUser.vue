@@ -8,9 +8,19 @@
         <input v-model="tagInputField" type="text" placeholder="Поле контакта">
         <input v-model="tagInputValue" type="text" placeholder="Значение поля">
         <span v-if="tagInputField.length != 0 && tagInputValue.length != 0">
-        <button v-on:click="saveNewFieldValue">Сохранить поле / значение</button>
-      </span>
+          <button v-on:click="saveNewFieldValue">Сохранить поле / значение</button>
+        </span>
       </div>
+
+
+      <span >
+        <ul v-for="(field, value, indexFieldValue) in FIELD_VALUE_ARRAY" v-bind:key="field">
+          <li>
+            {{indexFieldValue + 1}}: {{field}} / {{value}}
+          </li>
+        </ul>
+    </span>
+
 
     </div>
     <router-link to="/"><button class="toContactListButton">Скрыть информацию о контакте</button></router-link>
