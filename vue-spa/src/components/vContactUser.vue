@@ -1,11 +1,16 @@
 <template>
   <div>
-    <h1>Информация о контакте</h1>
+    <h1>Информация о контакте   " {{this.SELECTED_CONTACT}} "</h1>
+    <div class="mainInfoBlock">
+
+    </div>
     <router-link to="/"><button>Скрыть информацию о контакте</button></router-link>
   </div>
 </template>
 
 <script>
+import {mapGetters} from 'vuex'
+
 export default {
   name: "vContactUser",
   data(){
@@ -15,6 +20,11 @@ export default {
       savedContactList: [],
     }
   },
+  computed: {
+    ...mapGetters([
+      'SELECTED_CONTACT'
+    ])
+  },
   methods: {}
 }
 
@@ -22,7 +32,17 @@ export default {
 
 <style scoped>
 div{
-  color: brown;
+  color: whitesmoke;
   font-size: smaller;
+}
+button{
+  cursor: pointer;
+}
+button:hover{
+  background-color: #42b983;
+  color: whitesmoke;
+}
+mainInfoBlock{
+  color: whitesmoke;
 }
 </style>

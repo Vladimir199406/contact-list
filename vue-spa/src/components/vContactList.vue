@@ -14,7 +14,10 @@
             {{index + 1}}: {{contact}}
             <button v-on:click="startDeletion(index)" class="deleteButton">Удалить контакт</button>
             <button v-on:click="confirmDeletion(index)" class="confirmDeleteButton" hidden="true">Подтвердите удаление контакта</button>
-            <router-link to="/contact-list/user-info"><button>Информация о контакте {{contact}}</button></router-link>
+            <button v-on:click="cancelConfirmDeletion(index)" class="cancelConfirmDeleteButton" hidden="true">Отменить удаление контакта</button>
+            <router-link to="/contact-list/user-info">
+              <button v-on:click="getInfoAboutSelectedContact(index)">Информация о контакте {{contact}}</button>
+            </router-link>
           </li>
         </ul>
     </span>
@@ -35,13 +38,15 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'LIST_OF_CONTACTS'
+      'LIST_OF_CONTACTS',
+      'SELECTED_CONTACT'
     ])
   },
   methods: {
     ...mapActions([
       'ADD_CONTACT_TO_LIST_OF_CONTACTS',
-      'DELETE_CONTACT_FROM_LIST_OF_CONTACTS'
+      'DELETE_CONTACT_FROM_LIST_OF_CONTACTS',
+      'GET_INFO_ABOUT_SELECTED_CONTACT'
     ]),
     addContact(){
       document.getElementById("addingButton").hidden = true;
@@ -59,12 +64,21 @@ export default {
     startDeletion(index){
       document.getElementsByClassName("deleteButton")[index].hidden = true;
       document.getElementsByClassName("confirmDeleteButton")[index].hidden = false;
+      document.getElementsByClassName("cancelConfirmDeleteButton")[index].hidden = false;
     },
     confirmDeletion(index){
       this.DELETE_CONTACT_FROM_LIST_OF_CONTACTS(index);
       //console.log(this.savedContactList.length);
       console.log(index);
     },
+    cancelConfirmDeletion(index){
+      document.getElementsByClassName("deleteButton")[index].hidden = false;
+      document.getElementsByClassName("confirmDeleteButton")[index].hidden = true;
+      document.getElementsByClassName("cancelConfirmDeleteButton")[index].hidden = true;
+    },
+    getInfoAboutSelectedContact(index){
+      this.GET_INFO_ABOUT_SELECTED_CONTACT(index);
+    }
   }
 }
 </script>
@@ -72,10 +86,30 @@ export default {
 <style scoped>
   div{
     color: whitesmoke;
-    background-color: black;
   }
   button{
     cursor: pointer;
+  }
+  #addingButton{
+    color: black;
+    background: lightgray;
+  }
+  #addingButton:hover{
+    background-color: #42b983;
+    color: whitesmoke;
+  }
+  .confirmDeleteButton{
+    background: brown;
+    color: white;
+  }
+  .confirmDeleteButton:hover{
+    background: brown;
+    color: black;
+    font-weight: bold;
+    border: 0.2rem dotted darkolivegreen;
+  }
+  .cancelConfirmDeleteButton{
+    background: #42b983;
   }
   button:hover{
     background-color: #42b983;
@@ -83,5 +117,8 @@ export default {
   }
   ul{
     text-align: left;
+  }
+  ul > li{
+    margin: 0.3rem;
   }
 </style>
