@@ -2,9 +2,18 @@
   <div>
     <h1>Информация о контакте   " {{this.SELECTED_CONTACT}} "</h1>
     <div class="mainInfoBlock">
+      <button v-on:click="addFieldValue" id="addingFieldValueButton">Добавить новое поле / значение</button>
+
+      <div v-if="buttonOfAddingFieldValueIsPressed === true">
+        <input v-model="tagInputField" type="text" placeholder="Поле контакта">
+        <input v-model="tagInputValue" type="text" placeholder="Значение поля">
+        <span v-if="tagInputField.length != 0 && tagInputValue.length != 0">
+        <button v-on:click="saveNewFieldValue">Сохранить поле / значение</button>
+      </span>
+      </div>
 
     </div>
-    <router-link to="/"><button>Скрыть информацию о контакте</button></router-link>
+    <router-link to="/"><button class="toContactListButton">Скрыть информацию о контакте</button></router-link>
   </div>
 </template>
 
@@ -15,9 +24,9 @@ export default {
   name: "vContactUser",
   data(){
     return {
-      buttonOfAddingIsPressed: false,
-      tagInputContent: '',
-      savedContactList: [],
+      buttonOfAddingFieldValueIsPressed: false,
+      tagInputField: '',
+      tagInputValue: ''
     }
   },
   computed: {
@@ -25,7 +34,20 @@ export default {
       'SELECTED_CONTACT'
     ])
   },
-  methods: {}
+  methods: {
+    addFieldValue(){
+      document.getElementById("addingFieldValueButton").hidden = true;
+      this.buttonOfAddingFieldValueIsPressed = true;
+    },
+    saveNewFieldValue(){
+      this.buttonOfAddingFieldValueIsPressed = false;
+      //console.log(this.tagInputField);
+      //console.log(this.tagInputValue);
+      //this.ADD_CONTACT_TO_LIST_OF_CONTACTS(this.tagInputContent);
+      //this.savedContactList.push(this.savedContactList[this.index] = this.tagInputContent);
+      document.getElementById("addingFieldValueButton").hidden = false;
+    },
+  }
 }
 
 </script>
@@ -42,7 +64,18 @@ button:hover{
   background-color: #42b983;
   color: whitesmoke;
 }
-mainInfoBlock{
+.mainInfoBlock{
   color: whitesmoke;
+}
+.toContactListButton{
+  background: brown;
+  color: white;
+  margin-top: 1rem;
+}
+.toContactListButton:hover{
+  background: brown;
+  color: black;
+  font-weight: bold;
+  border: 0.2rem dotted darkolivegreen;
 }
 </style>
