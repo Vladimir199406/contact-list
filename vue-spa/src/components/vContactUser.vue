@@ -14,13 +14,14 @@
 
 
       <span >
-        <ul v-for="(field, value, indexFieldValue) in FIELD_VALUE_ARRAY" v-bind:key="field">
+        <ul v-for="(field, value, indexFieldValue) in this.FIELD_VALUE_ARRAY" v-bind:key="field">
           <li>
             {{indexFieldValue + 1}}: {{field}} / {{value}}
           </li>
         </ul>
     </span>
 
+      <h1>{{this.FIELD_VALUE_ARRAY}}</h1>
 
     </div>
     <router-link to="/"><button class="toContactListButton">Скрыть информацию о контакте</button></router-link>
@@ -41,7 +42,8 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'SELECTED_CONTACT'
+      'SELECTED_CONTACT',
+      'FIELD_VALUE_ARRAY'
     ])
   },
   methods: {
@@ -51,10 +53,6 @@ export default {
     },
     saveNewFieldValue(){
       this.buttonOfAddingFieldValueIsPressed = false;
-      //console.log(this.tagInputField);
-      //console.log(this.tagInputValue);
-      //this.ADD_CONTACT_TO_LIST_OF_CONTACTS(this.tagInputContent);
-      //this.savedContactList.push(this.savedContactList[this.index] = this.tagInputContent);
       document.getElementById("addingFieldValueButton").hidden = false;
     },
   }

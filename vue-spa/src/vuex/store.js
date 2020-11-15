@@ -8,9 +8,7 @@ let store = new Vuex.Store({
   state: {
     savedContactList:[],
     selectedContact: '',
-    savedFieldValueArr: {
-      "" : ""
-    }
+    savedFieldValueArr: {}
   },
   mutations:{
     LIST_OF_CONTACTS_ADDING_ELEMENT: (state,tagInputContent, index) =>{

@@ -9,7 +9,7 @@
       </span>
     </div>
     <span >
-        <ul v-for="(contact, index) in LIST_OF_CONTACTS" v-bind:key="contact">
+        <ul v-for="(contact, index) in this.LIST_OF_CONTACTS" v-bind:key="contact">
           <li>
             {{index + 1}}: {{contact}}
             <button v-on:click="startDeletion(index)" class="deleteButton">Удалить контакт</button>
