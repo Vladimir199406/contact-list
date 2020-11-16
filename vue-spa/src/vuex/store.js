@@ -65,7 +65,7 @@ let store = new Vuex.Store({
   //below is a plugin to save the state when reloading the page
   plugins: [createPersistedState(
     {
-      paths:['savedContactList', 'selectedContact']
+      paths:['savedContactList', 'selectedContact', 'savedFieldArr', 'savedValueArr']
     }
   )],
 })
