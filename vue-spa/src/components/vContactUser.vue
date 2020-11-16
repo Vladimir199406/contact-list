@@ -12,26 +12,33 @@
       </div>
     </div>
     <router-link to="/"><button class="toContactListButton">Скрыть информацию о контакте</button></router-link>
+
     <div id="unitedList">
       <div class="row_one">
         <nav>
           <ul v-for="(fieldValue, indexFieldValue) in this.FIELD_ARRAY">
-            <li>
-              {{indexFieldValue + 1}}: {{fieldValue}}
+            {{fieldValue}}
+            <li v-for="(fieldInnerValue, indexInnerFieldValue) in innerArrayElementField(indexFieldValue)">
+              {{indexInnerFieldValue + 1}}: {{fieldInnerValue}}
             </li>
           </ul>
         </nav>
       </div>
+
       <div class="row_two">
         <nav>
           <ul v-for="(fieldValue, indexFieldValue) in this.VALUE_ARRAY">
-            <li>
-              {{fieldValue}}
+            {{fieldValue}}
+            <li v-for="(fieldInnerValue, indexInnerFieldValue) in innerArrayElementValue(indexFieldValue)">
+              {{indexInnerFieldValue + 1}}: {{fieldInnerValue}}
             </li>
           </ul>
         </nav>
       </div>
     </div>
+
+    {{this.FIELD_ARRAY}}
+    {{this.VALUE_ARRAY}}
   </div>
 </template>
 
@@ -45,8 +52,6 @@ export default {
       buttonOfAddingFieldValueIsPressed: false,
       tagInputField: '',
       tagInputValue: '',
-      savingField: '',
-      savingValue: ''
     }
   },
   computed: {
@@ -72,6 +77,14 @@ export default {
       this.ADD_VALUE(this.tagInputValue);
       console.log(this.tagInputField);
     },
+    innerArrayElementField(indexFieldValue){
+      console.log(this.FIELD_ARRAY);
+      return this.FIELD_ARRAY[indexFieldValue]
+    },
+    innerArrayElementValue(indexFieldValue){
+      console.log(this.VALUE_ARRAY);
+      return this.FIELD_ARRAY[indexFieldValue]
+    }
   }
 }
 

@@ -22,11 +22,11 @@ let store = new Vuex.Store({
       state.selectedContact = state.savedContactList[index];
       return state.selectedContact;
     },
-    FIELD_ARRAY_ADDING_ELEMENT: (state, tagInputField, index) =>{
-      state.savedFieldArr.push(state.savedFieldArr[index] = tagInputField);
+    FIELD_ARRAY_ADDING_ELEMENT: (state, tagInputField, index, innerIndex) =>{
+      state.savedFieldArr.push(state.savedFieldArr[index] = 2);
     },
-    VALUE_ARRAY_ADDING_ELEMENT: (state, tagInputValue, index) =>{
-      state.savedValueArr.push(state.savedValueArr[index] = tagInputValue);
+    VALUE_ARRAY_ADDING_ELEMENT: (state, tagInputValue, index, innerIndex) =>{
+      state.savedValueArr.push(state.savedValueArr[index] = 2);
     },
   }
   ,
@@ -65,7 +65,7 @@ let store = new Vuex.Store({
   //below is a plugin to save the state when reloading the page
   plugins: [createPersistedState(
     {
-      paths:['savedContactList', 'selectedContact', 'savedFieldArr', 'savedValueArr']
+      paths:['savedContactList', 'selectedContact']
     }
   )],
 })
