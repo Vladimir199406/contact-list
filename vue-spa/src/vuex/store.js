@@ -8,7 +8,8 @@ let store = new Vuex.Store({
   state: {
     savedContactList:[],
     selectedContact: '',
-    savedFieldValueArr: {}
+    savedFieldArr: [],
+    savedValueArr: [],
   },
   mutations:{
     LIST_OF_CONTACTS_ADDING_ELEMENT: (state,tagInputContent, index) =>{
@@ -21,8 +22,11 @@ let store = new Vuex.Store({
       state.selectedContact = state.savedContactList[index];
       return state.selectedContact;
     },
-    FIELD_VALUE_ARRAY_ADDING_ELEMENT: (state,tagInputField, tagInputValue, index) =>{
-      state.savedFieldValueArr.push(state.savedFieldValueArr[index] = tagInputField);
+    FIELD_ARRAY_ADDING_ELEMENT: (state, tagInputField, index) =>{
+      state.savedFieldArr.push(state.savedFieldArr[index] = tagInputField);
+    },
+    VALUE_ARRAY_ADDING_ELEMENT: (state, tagInputValue, index) =>{
+      state.savedValueArr.push(state.savedValueArr[index] = tagInputValue);
     },
   }
   ,
@@ -36,8 +40,11 @@ let store = new Vuex.Store({
     GET_INFO_ABOUT_SELECTED_CONTACT({commit}, index){
       commit('INFO_ABOUT_SELECTED_CONTACT', index);
     },
-    ADD_FIELD_VALUE({commit}, tagInputField, tagInputValue){
-      commit('FIELD_VALUE_ARRAY_ADDING_ELEMENT', tagInputField, tagInputValue);
+    ADD_FIELD({commit}, tagInputField){
+      commit('FIELD_ARRAY_ADDING_ELEMENT', tagInputField);
+    },
+    ADD_VALUE({commit}, tagInputValue){
+      commit('VALUE_ARRAY_ADDING_ELEMENT', tagInputValue);
     },
 
   },
@@ -48,8 +55,11 @@ let store = new Vuex.Store({
     SELECTED_CONTACT(state){
      return state.selectedContact;
     },
-    FIELD_VALUE_ARRAY(state){
-      return state.savedFieldValueArr;
+    FIELD_ARRAY(state){
+      return state.savedFieldArr;
+    },
+    VALUE_ARRAY(state){
+      return state.savedValueArr;
     }
   },
   //below is a plugin to save the state when reloading the page

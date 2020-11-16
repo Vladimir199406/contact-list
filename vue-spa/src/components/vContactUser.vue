@@ -3,28 +3,35 @@
     <h1>Информация о контакте   " {{this.SELECTED_CONTACT}} "</h1>
     <div class="mainInfoBlock">
       <button v-on:click="addFieldValue" id="addingFieldValueButton">Добавить новое поле / значение</button>
-
       <div v-if="buttonOfAddingFieldValueIsPressed === true">
-        <input v-model="tagInputField" type="text" placeholder="Поле контакта">
+        <input v-model="tagInputField" type="text" placeholder="Поле">
         <input v-model="tagInputValue" type="text" placeholder="Значение поля">
         <span v-if="tagInputField.length != 0 && tagInputValue.length != 0">
           <button v-on:click="saveNewFieldValue">Сохранить поле / значение</button>
         </span>
       </div>
-
-
-      <span >
-        <ul v-for="(field, value, indexFieldValue) in this.FIELD_VALUE_ARRAY" v-bind:key="field">
-          <li>
-            {{indexFieldValue + 1}}: {{field}} / {{value}}
-          </li>
-        </ul>
-    </span>
-
-      <h1>{{this.FIELD_VALUE_ARRAY}}</h1>
-
     </div>
     <router-link to="/"><button class="toContactListButton">Скрыть информацию о контакте</button></router-link>
+    <div id="unitedList">
+      <div class="row_one">
+        <nav>
+          <ul v-for="(fieldValue, indexFieldValue) in this.FIELD_ARRAY">
+            <li>
+              {{indexFieldValue + 1}}: {{fieldValue}}
+            </li>
+          </ul>
+        </nav>
+      </div>
+      <div class="row_two">
+        <nav>
+          <ul v-for="(fieldValue, indexFieldValue) in this.VALUE_ARRAY">
+            <li>
+              {{fieldValue}}
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -37,18 +44,22 @@ export default {
     return {
       buttonOfAddingFieldValueIsPressed: false,
       tagInputField: '',
-      tagInputValue: ''
+      tagInputValue: '',
+      savingField: '',
+      savingValue: ''
     }
   },
   computed: {
     ...mapGetters([
       'SELECTED_CONTACT',
-      'FIELD_VALUE_ARRAY'
+      'FIELD_ARRAY',
+      'VALUE_ARRAY'
     ])
   },
   methods: {
     ...mapActions([
-      'ADD_FIELD_VALUE'
+      'ADD_FIELD',
+      'ADD_VALUE'
     ]),
     addFieldValue(){
       document.getElementById("addingFieldValueButton").hidden = true;
@@ -57,7 +68,9 @@ export default {
     saveNewFieldValue(){
       this.buttonOfAddingFieldValueIsPressed = false;
       document.getElementById("addingFieldValueButton").hidden = false;
-      this.ADD_FIELD_VALUE(this.tagInputField, this.tagInputValue,);
+      this.ADD_FIELD(this.tagInputField);
+      this.ADD_VALUE(this.tagInputValue);
+      console.log(this.tagInputField);
     },
   }
 }
@@ -89,5 +102,9 @@ button:hover{
   color: black;
   font-weight: bold;
   border: 0.2rem dotted darkolivegreen;
+}
+#unitedList{
+  display: flex;
+  flex-direction: row;
 }
 </style>
