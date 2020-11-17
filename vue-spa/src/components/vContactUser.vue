@@ -18,10 +18,10 @@
         <nav>
           <ul v-for="(fieldValue, indexFieldValue) in this.FIELD_ARRAY">
             <li>
-              <span v-if="editFlag != true">
+              <span>
                 {{fieldValue}}
               </span>
-              <input v-else-if="editFlag == true" v-model="tagInputField" placeholder="Поле" type="text">
+              <input type="text" class="inputFieldToEdit" hidden="true">
             </li>
           </ul>
         </nav>
@@ -31,16 +31,17 @@
         <nav>
           <ul v-for="(fieldValue, indexFieldValue) in this.VALUE_ARRAY">
             <li>
-              <span v-if="editFlag != true">
+              <span>
                 {{fieldValue}}
               </span>
-              <input v-else-if="editFlag == true" v-model="tagInputValue" placeholder="Значение" type="text">
+              <input type="text" class="inputValueToEdit" hidden="true">
               <button v-on:click="startDeletion(indexFieldValue)" class="deleteButton">Удалить </button>
               <button v-on:click="confirmDeletion(indexFieldValue)" class="confirmDeleteButton" hidden="true">Подтвердите</button>
               <button v-on:click="cancelConfirmDeletion(indexFieldValue)" class="cancelConfirmDeleteButton" hidden="true">Отменить удаление</button>
               <button v-on:click="editFields(indexFieldValue)" class="editFieldsButton" >Редактировать</button>
               <button v-on:click="cancelEditFields(indexFieldValue)" class="cancelEditButton" hidden="true">Отменить редактирование</button>
               <button v-on:click="сonfirmCancelEditing(indexFieldValue)" class="сonfirmCancelEditButton" hidden="true">Подтвердить отмену редактирования</button>
+              <button v-on:click="saveChanges(indexFieldValue)" class="saveChangesButton" hidden="true">Сохранить изменения</button>
             </li>
           </ul>
         </nav>
@@ -62,7 +63,6 @@ export default {
       buttonOfAddingFieldValueIsPressed: false,
       tagInputField: '',
       tagInputValue: '',
-      editFlag: false
     }
   },
   computed: {
@@ -110,7 +110,9 @@ export default {
       document.getElementsByClassName("editFieldsButton")[index].hidden = true;
       document.getElementsByClassName("deleteButton")[index].hidden = true;
       document.getElementsByClassName("cancelEditButton")[index].hidden = false;
-      this.editFlag = true;
+      document.getElementsByClassName("inputValueToEdit")[index].hidden = false;
+      document.getElementsByClassName("inputFieldToEdit")[index].hidden = false;
+      document.getElementsByClassName("saveChangesButton")[index].hidden = false;
     },
     cancelEditFields(index){
       document.getElementsByClassName("cancelEditButton")[index].hidden = true;
@@ -120,7 +122,18 @@ export default {
       document.getElementsByClassName("сonfirmCancelEditButton")[index].hidden = true;
       document.getElementsByClassName("deleteButton")[index].hidden = false;
       document.getElementsByClassName("editFieldsButton")[index].hidden = false;
-      this.editFlag = false;
+      document.getElementsByClassName("inputValueToEdit")[index].hidden = true;
+      document.getElementsByClassName("inputFieldToEdit")[index].hidden = true;
+      document.getElementsByClassName("saveChangesButton")[index].hidden = true;
+    },
+    saveChanges(index){
+      document.getElementsByClassName("saveChangesButton")[index].hidden = true;
+      document.getElementsByClassName("сonfirmCancelEditButton")[index].hidden = true;
+      document.getElementsByClassName("deleteButton")[index].hidden = false;
+      document.getElementsByClassName("editFieldsButton")[index].hidden = false;
+      document.getElementsByClassName("inputValueToEdit")[index].hidden = true;
+      document.getElementsByClassName("inputFieldToEdit")[index].hidden = true;
+      document.getElementsByClassName("cancelEditButton")[index].hidden = true;
     }
   }
 }
