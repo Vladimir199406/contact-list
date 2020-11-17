@@ -10,7 +10,8 @@ let store = new Vuex.Store({
     selectedContact: '',
     savedFieldArr: [],
     savedValueArr: [],
-
+    savedPreviousField: '',
+    savedPreviousValue: ''
   },
   mutations:{
     LIST_OF_CONTACTS_ADDING_ELEMENT: (state,tagInputContent, index) =>{
@@ -34,6 +35,14 @@ let store = new Vuex.Store({
     },
     VALUE_ARRAY_DELETE_ELEMENT: (state,index) =>{
       state.savedValueArr.splice(index, 1);
+    },
+    SAFETY_PREVIOUS_FIELD: (state, index) =>{
+      state.savedPreviousField = state.savedFieldArr[index];
+      return state.savedPreviousField;
+    },
+    SAFETY_PREVIOUS_VALUE: (state, index) =>{
+      state.savedPreviousValue = state.savedValueArr[index];
+      return state.savedPreviousValue;
     },
   }
   ,
@@ -59,6 +68,12 @@ let store = new Vuex.Store({
     DELETE_VALUE_FROM_VALUE_ARRAY({commit}, index){
       commit('VALUE_ARRAY_DELETE_ELEMENT', index);
     },
+    SAVE_PREVIOUS_FIELD({commit}, index){
+      commit('SAFETY_PREVIOUS_FIELD', index);
+    },
+    SAVE_PREVIOUS_VALUE({commit}, index){
+      commit('SAFETY_PREVIOUS_VALUE', index);
+    },
 
   },
   getters: {
@@ -73,7 +88,13 @@ let store = new Vuex.Store({
     },
     VALUE_ARRAY(state){
       return state.savedValueArr;
-    }
+    },
+    SAVED_PREVIOUS_FIELD(state){
+      return state.savedPreviousField;
+    },
+    SAVED_PREVIOUS_VALUE(state){
+      return state.savedPreviousValue;
+    },
   },
   //below is a plugin to save the state when reloading the page
   plugins: [createPersistedState(

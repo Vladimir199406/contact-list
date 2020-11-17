@@ -60,6 +60,8 @@
 
     <div>{{this.FIELD_ARRAY}}</div>
     <div>{{this.VALUE_ARRAY}}</div>
+    <div>{{this.SAVED_PREVIOUS_FIELD}}</div>
+    <div>{{this.SAVED_PREVIOUS_VALUE}}</div>
   </div>
 </template>
 
@@ -81,7 +83,9 @@ export default {
     ...mapGetters([
       'SELECTED_CONTACT',
       'FIELD_ARRAY',
-      'VALUE_ARRAY'
+      'VALUE_ARRAY',
+      'SAVED_PREVIOUS_FIELD',
+      'SAVED_PREVIOUS_VALUE'
     ])
   },
   methods: {
@@ -89,7 +93,9 @@ export default {
       'ADD_FIELD',
       'ADD_VALUE',
       'DELETE_FIELD_FROM_FIELD_ARRAY',
-      'DELETE_VALUE_FROM_VALUE_ARRAY'
+      'DELETE_VALUE_FROM_VALUE_ARRAY',
+      'SAVE_PREVIOUS_FIELD',
+      'SAVE_PREVIOUS_VALUE'
     ]),
     addFieldValue(){
       document.getElementById("addingFieldValueButton").hidden = true;
@@ -146,6 +152,8 @@ export default {
       document.getElementsByClassName("inputValueToEdit")[index].hidden = true;
       document.getElementsByClassName("inputFieldToEdit")[index].hidden = true;
       document.getElementsByClassName("cancelEditButton")[index].hidden = true;
+      this.SAVE_PREVIOUS_FIELD(index);
+      this.SAVE_PREVIOUS_VALUE(index);
     }
   }
 }
