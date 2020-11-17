@@ -18,7 +18,10 @@
         <nav>
           <ul v-for="(fieldValue, indexFieldValue) in this.FIELD_ARRAY">
             <li>
-              {{fieldValue}}
+              <span v-if="editFlag != true">
+                {{fieldValue}}
+              </span>
+              <input v-else-if="editFlag == true" v-model="tagInputField" placeholder="Поле" type="text">
             </li>
           </ul>
         </nav>
@@ -28,7 +31,10 @@
         <nav>
           <ul v-for="(fieldValue, indexFieldValue) in this.VALUE_ARRAY">
             <li>
-              {{fieldValue}}
+              <span v-if="editFlag != true">
+                {{fieldValue}}
+              </span>
+              <input v-else-if="editFlag == true" v-model="tagInputValue" placeholder="Значение" type="text">
               <button v-on:click="startDeletion(indexFieldValue)" class="deleteButton">Удалить </button>
               <button v-on:click="confirmDeletion(indexFieldValue)" class="confirmDeleteButton" hidden="true">Подтвердите</button>
               <button v-on:click="cancelConfirmDeletion(indexFieldValue)" class="cancelConfirmDeleteButton" hidden="true">Отменить удаление</button>
@@ -55,7 +61,8 @@ export default {
     return {
       buttonOfAddingFieldValueIsPressed: false,
       tagInputField: '',
-      tagInputValue: ''
+      tagInputValue: '',
+      editFlag: false
     }
   },
   computed: {
@@ -103,6 +110,7 @@ export default {
       document.getElementsByClassName("editFieldsButton")[index].hidden = true;
       document.getElementsByClassName("deleteButton")[index].hidden = true;
       document.getElementsByClassName("cancelEditButton")[index].hidden = false;
+      this.editFlag = true;
     },
     cancelEditFields(index){
       document.getElementsByClassName("cancelEditButton")[index].hidden = true;
@@ -112,6 +120,7 @@ export default {
       document.getElementsByClassName("сonfirmCancelEditButton")[index].hidden = true;
       document.getElementsByClassName("deleteButton")[index].hidden = false;
       document.getElementsByClassName("editFieldsButton")[index].hidden = false;
+      this.editFlag = false;
     }
   }
 }
