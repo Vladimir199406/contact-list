@@ -17,9 +17,8 @@
       <div class="row_one">
         <nav>
           <ul v-for="(fieldValue, indexFieldValue) in this.FIELD_ARRAY">
-            {{fieldValue}}
-            <li v-for="(fieldInnerValue, indexInnerFieldValue) in innerArrayElementField(indexFieldValue)">
-              {{indexInnerFieldValue + 1}}: {{fieldInnerValue}}
+            <li>
+              {{fieldValue}}
             </li>
           </ul>
         </nav>
@@ -28,17 +27,22 @@
       <div class="row_two">
         <nav>
           <ul v-for="(fieldValue, indexFieldValue) in this.VALUE_ARRAY">
-            {{fieldValue}}
-            <li v-for="(fieldInnerValue, indexInnerFieldValue) in innerArrayElementValue(indexFieldValue)">
-              {{indexInnerFieldValue + 1}}: {{fieldInnerValue}}
+            <li>
+              {{fieldValue}}
+              <button v-on:click="startDeletion(indexFieldValue)" class="deleteButton">Удалить </button>
+              <button v-on:click="confirmDeletion(indexFieldValue)" class="confirmDeleteButton" hidden="true">Подтвердите</button>
+              <button v-on:click="cancelConfirmDeletion(indexFieldValue)" class="cancelConfirmDeleteButton" hidden="true">Отменить удаление</button>
+              <button v-on:click="editFields(indexFieldValue)" class="editFieldsButton" >Редактировать</button>
+              <button v-on:click="cancelEditFields(indexFieldValue)" class="cancelEditButton" hidden="true">Отменить редактирование</button>
+              <button v-on:click="сonfirmCancelEditing(indexFieldValue)" class="сonfirmCancelEditButton" hidden="true">Подтвердить отмену редактирования</button>
             </li>
           </ul>
         </nav>
       </div>
     </div>
 
-    {{this.FIELD_ARRAY}}
-    {{this.VALUE_ARRAY}}
+    <div>{{this.FIELD_ARRAY}}</div>
+    <div>{{this.VALUE_ARRAY}}</div>
   </div>
 </template>
 
@@ -51,7 +55,7 @@ export default {
     return {
       buttonOfAddingFieldValueIsPressed: false,
       tagInputField: '',
-      tagInputValue: '',
+      tagInputValue: ''
     }
   },
   computed: {
@@ -64,7 +68,9 @@ export default {
   methods: {
     ...mapActions([
       'ADD_FIELD',
-      'ADD_VALUE'
+      'ADD_VALUE',
+      'DELETE_FIELD_FROM_FIELD_ARRAY',
+      'DELETE_VALUE_FROM_VALUE_ARRAY'
     ]),
     addFieldValue(){
       document.getElementById("addingFieldValueButton").hidden = true;
@@ -77,13 +83,35 @@ export default {
       this.ADD_VALUE(this.tagInputValue);
       console.log(this.tagInputField);
     },
-    innerArrayElementField(indexFieldValue){
-      console.log(this.FIELD_ARRAY);
-      return this.FIELD_ARRAY[indexFieldValue]
+    startDeletion(index){
+      document.getElementsByClassName("deleteButton")[index].hidden = true;
+      document.getElementsByClassName("confirmDeleteButton")[index].hidden = false;
+      document.getElementsByClassName("cancelConfirmDeleteButton")[index].hidden = false;
+      document.getElementsByClassName("editFieldsButton")[index].hidden = true;
     },
-    innerArrayElementValue(indexFieldValue){
-      console.log(this.VALUE_ARRAY);
-      return this.FIELD_ARRAY[indexFieldValue]
+    confirmDeletion(index){
+      this.DELETE_FIELD_FROM_FIELD_ARRAY(index);
+      this.DELETE_VALUE_FROM_VALUE_ARRAY(index);
+    },
+    cancelConfirmDeletion(index){
+      document.getElementsByClassName("deleteButton")[index].hidden = false;
+      document.getElementsByClassName("confirmDeleteButton")[index].hidden = true;
+      document.getElementsByClassName("cancelConfirmDeleteButton")[index].hidden = true;
+      document.getElementsByClassName("editFieldsButton")[index].hidden = false;
+    },
+    editFields(index){
+      document.getElementsByClassName("editFieldsButton")[index].hidden = true;
+      document.getElementsByClassName("deleteButton")[index].hidden = true;
+      document.getElementsByClassName("cancelEditButton")[index].hidden = false;
+    },
+    cancelEditFields(index){
+      document.getElementsByClassName("cancelEditButton")[index].hidden = true;
+      document.getElementsByClassName("сonfirmCancelEditButton")[index].hidden = false;
+    },
+    сonfirmCancelEditing(index){
+      document.getElementsByClassName("сonfirmCancelEditButton")[index].hidden = true;
+      document.getElementsByClassName("deleteButton")[index].hidden = false;
+      document.getElementsByClassName("editFieldsButton")[index].hidden = false;
     }
   }
 }
@@ -115,6 +143,19 @@ button:hover{
   color: black;
   font-weight: bold;
   border: 0.2rem dotted darkolivegreen;
+}
+.confirmDeleteButton{
+  background: brown;
+  color: white;
+}
+.confirmDeleteButton:hover{
+  background: brown;
+  color: black;
+  font-weight: bold;
+  border: 0.2rem dotted darkolivegreen;
+}
+.cancelConfirmDeleteButton{
+  background: #42b983;
 }
 #unitedList{
   display: flex;

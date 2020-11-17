@@ -12,9 +12,9 @@
         <ul v-for="(contact, index) in this.LIST_OF_CONTACTS" v-bind:key="contact">
           <li>
             {{index + 1}}: {{contact}}
-            <button v-on:click="startDeletion(index)" class="deleteButton">Удалить контакт</button>
-            <button v-on:click="confirmDeletion(index)" class="confirmDeleteButton" hidden="true">Подтвердите удаление контакта</button>
-            <button v-on:click="cancelConfirmDeletion(index)" class="cancelConfirmDeleteButton" hidden="true">Отменить удаление контакта</button>
+            <button v-on:click="startDeletion(index)" class="deleteButton">Удалить</button>
+            <button v-on:click="confirmDeletion(index)" class="confirmDeleteButton" hidden="true">Подтвердить</button>
+            <button v-on:click="cancelConfirmDeletion(index)" class="cancelConfirmDeleteButton" hidden="true">Отменить удаление</button>
             <router-link to="/contact-list/user-info">
               <button v-on:click="getInfoAboutSelectedContact(index)">Информация о контакте {{contact}}</button>
             </router-link>

@@ -22,11 +22,17 @@ let store = new Vuex.Store({
       state.selectedContact = state.savedContactList[index];
       return state.selectedContact;
     },
-    FIELD_ARRAY_ADDING_ELEMENT: (state, tagInputField, index, innerIndex) =>{
-      state.savedFieldArr.push(state.savedFieldArr[index] = 2);
+    FIELD_ARRAY_ADDING_ELEMENT: (state, tagInputField, index) =>{
+      state.savedFieldArr.push(state.savedFieldArr[index] = tagInputField);
     },
-    VALUE_ARRAY_ADDING_ELEMENT: (state, tagInputValue, index, innerIndex) =>{
-      state.savedValueArr.push(state.savedValueArr[index] = 2);
+    VALUE_ARRAY_ADDING_ELEMENT: (state, tagInputValue, index) =>{
+      state.savedValueArr.push(state.savedValueArr[index] = tagInputValue);
+    },
+    FIELD_ARRAY_DELETE_ELEMENT: (state,index) =>{
+      state.savedFieldArr.splice(index, 1);
+    },
+    VALUE_ARRAY_DELETE_ELEMENT: (state,index) =>{
+      state.savedValueArr.splice(index, 1);
     },
   }
   ,
@@ -45,6 +51,12 @@ let store = new Vuex.Store({
     },
     ADD_VALUE({commit}, tagInputValue){
       commit('VALUE_ARRAY_ADDING_ELEMENT', tagInputValue);
+    },
+    DELETE_FIELD_FROM_FIELD_ARRAY({commit}, index){
+      commit('FIELD_ARRAY_DELETE_ELEMENT', index);
+    },
+    DELETE_VALUE_FROM_VALUE_ARRAY({commit}, index){
+      commit('VALUE_ARRAY_DELETE_ELEMENT', index);
     },
 
   },
