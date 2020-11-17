@@ -21,7 +21,12 @@
               <span>
                 {{fieldValue}}
               </span>
-              <input type="text" class="inputFieldToEdit" hidden="true">
+              <input v-model="tempInputField"
+                     type="text"
+                     class="inputFieldToEdit"
+                     hidden="true"
+                     placeholder="Замена имени поля"
+              >
             </li>
           </ul>
         </nav>
@@ -34,7 +39,12 @@
               <span>
                 {{fieldValue}}
               </span>
-              <input type="text" class="inputValueToEdit" hidden="true">
+              <input v-model="tempInputValue"
+                     type="text"
+                     class="inputValueToEdit"
+                     hidden="true"
+                     placeholder="Замена значения поля"
+              >
               <button v-on:click="startDeletion(indexFieldValue)" class="deleteButton">Удалить </button>
               <button v-on:click="confirmDeletion(indexFieldValue)" class="confirmDeleteButton" hidden="true">Подтвердите</button>
               <button v-on:click="cancelConfirmDeletion(indexFieldValue)" class="cancelConfirmDeleteButton" hidden="true">Отменить удаление</button>
@@ -63,6 +73,8 @@ export default {
       buttonOfAddingFieldValueIsPressed: false,
       tagInputField: '',
       tagInputValue: '',
+      tempInputField: '',
+      tempInputValue: ''
     }
   },
   computed: {

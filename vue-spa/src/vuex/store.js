@@ -10,6 +10,7 @@ let store = new Vuex.Store({
     selectedContact: '',
     savedFieldArr: [],
     savedValueArr: [],
+
   },
   mutations:{
     LIST_OF_CONTACTS_ADDING_ELEMENT: (state,tagInputContent, index) =>{
