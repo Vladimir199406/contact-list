@@ -10,9 +10,13 @@
           <button v-on:click="saveNewFieldValue">Сохранить поле / значение</button>
         </span>
       </div>
+      <!--CANCEL change BELOW-->
       <div>
-
+          <span v-if="this.SAVED_PREVIOUS_VALUE != '' && this.VALUE_ARRAY.length != 0">
+            <button v-on:click="cancelLastChangeFieldValue">Отменить последнее изменение</button>
+          </span>
       </div>
+      <!--CANCEL change ABOVE-->
     </div>
     <router-link to="/"><button class="toContactListButton">Скрыть информацию о контакте</button></router-link>
 
@@ -22,7 +26,7 @@
           <ul v-for="(fieldValue, indexFieldValue) in this.FIELD_ARRAY">
             <li>
               <span>
-                {{fieldValue}}
+                Поле: {{fieldValue}}
               </span>
               <input v-model="tempInputField"
                      type="text"
@@ -40,7 +44,7 @@
           <ul v-for="(fieldValue, indexFieldValue) in this.VALUE_ARRAY">
             <li>
               <span>
-                {{fieldValue}}
+                Значение: {{fieldValue}}
               </span>
               <input v-model="tempInputValue"
                      type="text"
@@ -64,11 +68,11 @@
     <div>{{this.FIELD_ARRAY}}</div>
     <div>{{this.VALUE_ARRAY}}</div>
     Текущие значения эл массивов во врем переменных:
-    <div>{{this.SAVED_PREVIOUS_FIELD}}</div>
-    <div>{{this.SAVED_PREVIOUS_VALUE}}</div>
+
     ИНПУТЫ КОТОРЫЕ ПЕРЕЗАПИШУТ ЭЛЕМЕНТЫ МАССИВА:
     <div>ПОЛЕ  {{this.tempInputField}}{{this.EDITED_FIELD}}</div>
     <div>ЗНАЧЕНИЕ  {{this.tempInputValue}}{{this.EDITED_VALUE}}</div>
+    <div>{{this.indexKeyToCancelChange}}</div>
 
   </div>
 </template>
@@ -84,7 +88,8 @@ export default {
       tagInputField: '',
       tagInputValue: '',
       tempInputField: '',
-      tempInputValue: ''
+      tempInputValue: '',
+      indexKeyToCancelChange: 1
     }
   },
   computed: {
@@ -95,7 +100,9 @@ export default {
       'SAVED_PREVIOUS_FIELD',
       'SAVED_PREVIOUS_VALUE',
       'EDITED_FIELD',
-      'EDITED_VALUE'
+      'EDITED_VALUE',
+      'CANCELED_LAST_CHANGED_FIELD',
+      'CANCELED_LAST_CHANGED_VALUE'
     ])
   },
   methods: {
@@ -107,7 +114,9 @@ export default {
       'SAVE_PREVIOUS_FIELD',
       'SAVE_PREVIOUS_VALUE',
       'EDIT_FIELD',
-      'EDIT_VALUE'
+      'EDIT_VALUE',
+      'CANCEL_LAST_CHANGE_FIELD',
+      'CANCEL_LAST_CHANGE_VALUE'
 
     ]),
     addFieldValue(){
@@ -157,6 +166,7 @@ export default {
       document.getElementsByClassName("inputFieldToEdit")[index].hidden = true;
       document.getElementsByClassName("saveChangesButton")[index].hidden = true;
     },
+    //save changes below
     saveChanges(index){
       document.getElementsByClassName("saveChangesButton")[index].hidden = true;
       document.getElementsByClassName("сonfirmCancelEditButton")[index].hidden = true;
@@ -167,8 +177,18 @@ export default {
       document.getElementsByClassName("cancelEditButton")[index].hidden = true;
       this.SAVE_PREVIOUS_FIELD(index);
       this.SAVE_PREVIOUS_VALUE(index);
-      this.EDIT_FIELD(index)
-      this.EDIT_VALUE(index)
+      this.EDIT_FIELD(index);
+      this.EDIT_VALUE(index);
+      this.indexKeyToCancelChange = index;
+    },
+    //cancel last change below
+    async cancelLastChangeFieldValue() {
+      let index = this.indexKeyToCancelChange;
+      console.log(index);
+      await this.CANCEL_LAST_CHANGE_FIELD(index);
+      await this.CANCEL_LAST_CHANGE_VALUE(index);
+      console.log(this.CANCELED_LAST_CHANGED_FIELD);
+      console.log(this.CANCELED_LAST_CHANGED_VALUE);
     }
   }
 }

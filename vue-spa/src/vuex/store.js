@@ -13,7 +13,10 @@ let store = new Vuex.Store({
     savedPreviousField: '',
     savedPreviousValue: '',
     editedNewField: '',
-    editedNewValue: ''
+    editedNewValue: '',
+    changedLastField: '',
+    changedLastValue: ''
+
 
   },
   mutations:{
@@ -55,6 +58,14 @@ let store = new Vuex.Store({
       state.editedNewValue = document.getElementsByClassName("inputValueToEdit")[index].value;
       state.savedValueArr[index] = state.editedNewValue;
     },
+    CANCELING_LAST_CHANGE_FIELD: (state, index) =>{
+      state.changedLastField = state.savedPreviousField;
+      state.savedFieldArr[index] = state.changedLastField;
+    },
+    CANCELING_LAST_CHANGE_VALUE: (state, index) =>{
+      state.changedLastValue = state.savedPreviousValue;
+      state.savedValueArr[index] = state.changedLastValue;
+    }
 
   }
   ,
@@ -92,6 +103,12 @@ let store = new Vuex.Store({
     EDIT_VALUE({commit}, index){
       commit('EDITING_VALUE', index);
     },
+    CANCEL_LAST_CHANGE_FIELD({commit}, index){
+      commit('CANCELING_LAST_CHANGE_FIELD', index);
+    },
+    CANCEL_LAST_CHANGE_VALUE({commit}, index){
+      commit('CANCELING_LAST_CHANGE_VALUE', index);
+    },
 
   },
   getters: {
@@ -119,6 +136,13 @@ let store = new Vuex.Store({
     EDITED_VALUE(state){
       return state.editedNewValue;
     },
+    CANCELED_LAST_CHANGED_FIELD(state){
+      return state.changedLastField;
+    },
+    CANCELED_LAST_CHANGED_VALUE(state){
+      return state.changedLastValue;
+    },
+
 
   },
   //below is a plugin to save the state when reloading the page
@@ -132,7 +156,9 @@ let store = new Vuex.Store({
         'savedPreviousField',
         'savedPreviousValue',
         'editedNewField',
-        'editedNewValue'
+        'editedNewValue',
+        'changedLastField',
+        'changedLastValue'
       ]
     }
   )],
