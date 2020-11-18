@@ -10,6 +10,9 @@
           <button v-on:click="saveNewFieldValue">Сохранить поле / значение</button>
         </span>
       </div>
+      <div>
+
+      </div>
     </div>
     <router-link to="/"><button class="toContactListButton">Скрыть информацию о контакте</button></router-link>
 
@@ -57,11 +60,16 @@
         </nav>
       </div>
     </div>
-
+    Массивы:
     <div>{{this.FIELD_ARRAY}}</div>
     <div>{{this.VALUE_ARRAY}}</div>
+    Текущие значения эл массивов во врем переменных:
     <div>{{this.SAVED_PREVIOUS_FIELD}}</div>
     <div>{{this.SAVED_PREVIOUS_VALUE}}</div>
+    ИНПУТЫ КОТОРЫЕ ПЕРЕЗАПИШУТ ЭЛЕМЕНТЫ МАССИВА:
+    <div>ПОЛЕ  {{this.tempInputField}}{{this.EDITED_FIELD}}</div>
+    <div>ЗНАЧЕНИЕ  {{this.tempInputValue}}{{this.EDITED_VALUE}}</div>
+
   </div>
 </template>
 
@@ -85,7 +93,9 @@ export default {
       'FIELD_ARRAY',
       'VALUE_ARRAY',
       'SAVED_PREVIOUS_FIELD',
-      'SAVED_PREVIOUS_VALUE'
+      'SAVED_PREVIOUS_VALUE',
+      'EDITED_FIELD',
+      'EDITED_VALUE'
     ])
   },
   methods: {
@@ -95,7 +105,10 @@ export default {
       'DELETE_FIELD_FROM_FIELD_ARRAY',
       'DELETE_VALUE_FROM_VALUE_ARRAY',
       'SAVE_PREVIOUS_FIELD',
-      'SAVE_PREVIOUS_VALUE'
+      'SAVE_PREVIOUS_VALUE',
+      'EDIT_FIELD',
+      'EDIT_VALUE'
+
     ]),
     addFieldValue(){
       document.getElementById("addingFieldValueButton").hidden = true;
@@ -154,6 +167,8 @@ export default {
       document.getElementsByClassName("cancelEditButton")[index].hidden = true;
       this.SAVE_PREVIOUS_FIELD(index);
       this.SAVE_PREVIOUS_VALUE(index);
+      this.EDIT_FIELD(index)
+      this.EDIT_VALUE(index)
     }
   }
 }

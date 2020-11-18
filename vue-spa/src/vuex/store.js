@@ -11,7 +11,10 @@ let store = new Vuex.Store({
     savedFieldArr: [],
     savedValueArr: [],
     savedPreviousField: '',
-    savedPreviousValue: ''
+    savedPreviousValue: '',
+    editedNewField: '',
+    editedNewValue: ''
+
   },
   mutations:{
     LIST_OF_CONTACTS_ADDING_ELEMENT: (state,tagInputContent, index) =>{
@@ -44,6 +47,15 @@ let store = new Vuex.Store({
       state.savedPreviousValue = state.savedValueArr[index];
       return state.savedPreviousValue;
     },
+    EDITING_FIELD: (state, index) =>{
+      state.editedNewField = document.getElementsByClassName("inputFieldToEdit")[index].value;
+      state.savedFieldArr[index] = state.editedNewField;
+    },
+    EDITING_VALUE: (state, index) =>{
+      state.editedNewValue = document.getElementsByClassName("inputValueToEdit")[index].value;
+      state.savedValueArr[index] = state.editedNewValue;
+    },
+
   }
   ,
   actions: {
@@ -74,6 +86,12 @@ let store = new Vuex.Store({
     SAVE_PREVIOUS_VALUE({commit}, index){
       commit('SAFETY_PREVIOUS_VALUE', index);
     },
+    EDIT_FIELD({commit}, index, tempInputField){
+      commit('EDITING_FIELD', index, tempInputField);
+    },
+    EDIT_VALUE({commit}, index){
+      commit('EDITING_VALUE', index);
+    },
 
   },
   getters: {
@@ -95,11 +113,27 @@ let store = new Vuex.Store({
     SAVED_PREVIOUS_VALUE(state){
       return state.savedPreviousValue;
     },
+    EDITED_FIELD(state){
+      return state.editedNewField;
+    },
+    EDITED_VALUE(state){
+      return state.editedNewValue;
+    },
+
   },
   //below is a plugin to save the state when reloading the page
   plugins: [createPersistedState(
     {
-      paths:['savedContactList', 'selectedContact', 'savedFieldArr', 'savedValueArr']
+      paths:[
+        'savedContactList',
+        'selectedContact',
+        'savedFieldArr',
+        'savedValueArr',
+        'savedPreviousField',
+        'savedPreviousValue',
+        'editedNewField',
+        'editedNewValue'
+      ]
     }
   )],
 })
