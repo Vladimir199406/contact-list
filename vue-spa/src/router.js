@@ -4,7 +4,7 @@ import vContactList from './components/vContactList'
 import vContactUser from './components/vContactUser'
 
 Vue.use(Router)
-
+//used router to navigate and create SPA model
 const router = new Router({
   routes: [
     {

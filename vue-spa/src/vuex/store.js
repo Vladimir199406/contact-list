@@ -61,12 +61,12 @@ let store = new Vuex.Store({
     CANCELING_LAST_CHANGE_FIELD: (state, index) => {
       state.changedLastField = state.savedPreviousField;
       state.savedFieldArr[index] = state.changedLastField;
-      document.getElementsByClassName("returningPreviousField")[index].innerText = 'Поле:' + state.changedLastField;
+      document.getElementsByClassName("returningPreviousField")[index].innerText = state.changedLastField;
     },
     CANCELING_LAST_CHANGE_VALUE: (state, index) => {
       state.changedLastValue = state.savedPreviousValue;
       state.savedValueArr[index] = state.changedLastValue;
-      document.getElementsByClassName("returningPreviousValue")[index].innerText = 'Значение:' + state.changedLastValue;
+      document.getElementsByClassName("returningPreviousValue")[index].innerText = state.changedLastValue;
     }
 
   }

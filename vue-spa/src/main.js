@@ -8,4 +8,5 @@ new Vue({
   render: h => h(App),
   store,
   router
+  //important to set here "store" and "router"
 })
