@@ -10,7 +10,10 @@ contact-list spa
 #npm run dev
 
 -------------
-build with Vue. Simple visual, no UI-libraries, all in alphabetical order.
+#production version:
+http://contact-list.tsallagov.beget.tech/#/
+-------------
+#build with Vue. Simple visual, no UI-libraries, all in alphabetical order.
 + vue-router
 + vuex (getters, mutations, actions)
 + createPersistedState plugin
