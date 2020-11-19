@@ -8,3 +8,11 @@ contact-list spa
 #npm install
 
 #npm run dev
+
+-------------
+build with Vue. Simple visual, no UI-libraries, all in alphabetical order.
++ vue-router
++ vuex (getters, mutations, actions)
++ createPersistedState plugin
++ free modified font added
++ comments inside 
