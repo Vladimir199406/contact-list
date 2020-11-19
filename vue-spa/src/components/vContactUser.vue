@@ -25,7 +25,7 @@
         <nav>
           <ul v-for="(fieldValue, indexFieldValue) in this.FIELD_ARRAY">
             <li>
-              <span>
+              <span class="returningPreviousField">
                 Поле: {{fieldValue}}
               </span>
               <input v-model="tempInputField"
@@ -43,7 +43,7 @@
         <nav>
           <ul v-for="(fieldValue, indexFieldValue) in this.VALUE_ARRAY">
             <li>
-              <span>
+              <span class="returningPreviousValue">
                 Значение: {{fieldValue}}
               </span>
               <input v-model="tempInputValue"
@@ -182,11 +182,11 @@ export default {
       this.indexKeyToCancelChange = index;
     },
     //cancel last change below
-    async cancelLastChangeFieldValue() {
+    cancelLastChangeFieldValue() {
       let index = this.indexKeyToCancelChange;
       console.log(index);
-      await this.CANCEL_LAST_CHANGE_FIELD(index);
-      await this.CANCEL_LAST_CHANGE_VALUE(index);
+      this.CANCEL_LAST_CHANGE_FIELD(index);
+      this.CANCEL_LAST_CHANGE_VALUE(index);
       console.log(this.CANCELED_LAST_CHANGED_FIELD);
       console.log(this.CANCELED_LAST_CHANGED_VALUE);
     }

@@ -58,13 +58,15 @@ let store = new Vuex.Store({
       state.editedNewValue = document.getElementsByClassName("inputValueToEdit")[index].value;
       state.savedValueArr[index] = state.editedNewValue;
     },
-    CANCELING_LAST_CHANGE_FIELD: (state, index) =>{
+    CANCELING_LAST_CHANGE_FIELD: (state, index) => {
       state.changedLastField = state.savedPreviousField;
       state.savedFieldArr[index] = state.changedLastField;
+      document.getElementsByClassName("returningPreviousField")[index].innerText = 'Поле:' + state.changedLastField;
     },
-    CANCELING_LAST_CHANGE_VALUE: (state, index) =>{
+    CANCELING_LAST_CHANGE_VALUE: (state, index) => {
       state.changedLastValue = state.savedPreviousValue;
       state.savedValueArr[index] = state.changedLastValue;
+      document.getElementsByClassName("returningPreviousValue")[index].innerText = 'Значение:' + state.changedLastValue;
     }
 
   }
